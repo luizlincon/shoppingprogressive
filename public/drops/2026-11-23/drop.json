@@ -2,43 +2,154 @@
   "drop_date": "2026-11-23",
   "number": 1,
   "title": "Grau por Grau",
-  "version": 1,
+  "version": 2,
   "status": "ready_for_review",
-  "concept": "Progredir no Jiu-Jitsu é ganhar um grau de cada vez. Na frente, PROGRESSIVE sobre uma faixa com quatro graus; nas costas, a escada da branca à preta.",
+  "concept": "Uma camiseta para cada faixa: na frente, PROGRESSIVE sobre a sua faixa com os quatro graus; nas costas, a escada colorida da branca à preta.",
   "garment": {
     "type": "Camiseta",
     "color": "Preta",
     "ink": [
-      "Branco"
+      "Branco",
+      "Azul",
+      "Roxo",
+      "Marrom",
+      "Vermelho"
     ]
   },
   "origin": "Criação assistida na sessão de desenvolvimento; pipeline automático na etapa 2.",
   "provisional_specs": "Medidas provisórias até a conferência na YouDraw.",
+  "changes_from_previous": [
+    "Estampa do peito de 10 cm para 14 cm de largura",
+    "Faixas coloridas nas costas e na frente",
+    "Cinco variações, uma por faixa, todas com quatro graus"
+  ],
+  "featured_variant": "marrom",
+  "variants": [
+    {
+      "slug": "branca",
+      "name": "Faixa branca",
+      "color": "#f2f2ee",
+      "print_front": {
+        "file": "v2/print-front-branca.png",
+        "svg": "v2/print-front-branca.svg",
+        "width_px": 1654,
+        "height_px": 484,
+        "dpi": 300,
+        "width_mm": 140,
+        "height_mm": 41,
+        "transparent": true
+      },
+      "mockup_front": {
+        "file": "v2/mockup-front-branca.png"
+      }
+    },
+    {
+      "slug": "azul",
+      "name": "Faixa azul",
+      "color": "#2f6fd0",
+      "print_front": {
+        "file": "v2/print-front-azul.png",
+        "svg": "v2/print-front-azul.svg",
+        "width_px": 1654,
+        "height_px": 484,
+        "dpi": 300,
+        "width_mm": 140,
+        "height_mm": 41,
+        "transparent": true
+      },
+      "mockup_front": {
+        "file": "v2/mockup-front-azul.png"
+      }
+    },
+    {
+      "slug": "roxa",
+      "name": "Faixa roxa",
+      "color": "#7b4bb3",
+      "print_front": {
+        "file": "v2/print-front-roxa.png",
+        "svg": "v2/print-front-roxa.svg",
+        "width_px": 1654,
+        "height_px": 484,
+        "dpi": 300,
+        "width_mm": 140,
+        "height_mm": 41,
+        "transparent": true
+      },
+      "mockup_front": {
+        "file": "v2/mockup-front-roxa.png"
+      }
+    },
+    {
+      "slug": "marrom",
+      "name": "Faixa marrom",
+      "color": "#9a6238",
+      "print_front": {
+        "file": "v2/print-front-marrom.png",
+        "svg": "v2/print-front-marrom.svg",
+        "width_px": 1654,
+        "height_px": 484,
+        "dpi": 300,
+        "width_mm": 140,
+        "height_mm": 41,
+        "transparent": true
+      },
+      "mockup_front": {
+        "file": "v2/mockup-front-marrom.png"
+      }
+    },
+    {
+      "slug": "preta",
+      "name": "Faixa preta",
+      "color": "#141414",
+      "print_front": {
+        "file": "v2/print-front-preta.png",
+        "svg": "v2/print-front-preta.svg",
+        "width_px": 1654,
+        "height_px": 484,
+        "dpi": 300,
+        "width_mm": 140,
+        "height_mm": 41,
+        "transparent": true
+      },
+      "mockup_front": {
+        "file": "v2/mockup-front-preta.png"
+      }
+    }
+  ],
   "files": {
+    "mockup_front": {
+      "file": "v2/mockup-front-marrom.png"
+    },
+    "mockup_back": {
+      "file": "v2/mockup-back.png"
+    },
     "print_front": {
-      "file": "print-front.png",
-      "width_px": 1181,
-      "height_px": 709,
+      "file": "v2/print-front-marrom.png",
+      "svg": "v2/print-front-marrom.svg",
+      "width_px": 1654,
+      "height_px": 484,
       "dpi": 300,
-      "width_mm": 100,
-      "height_mm": 60,
+      "width_mm": 140,
+      "height_mm": 41,
       "transparent": true
     },
     "print_back": {
-      "file": "print-back.png",
+      "file": "v2/print-back.png",
+      "svg": "v2/print-back.svg",
       "width_px": 3543,
       "height_px": 3803,
       "dpi": 300,
       "width_mm": 300,
       "height_mm": 322,
       "transparent": true
-    },
-    "mockup_front": {
-      "file": "mockup-front.png"
-    },
-    "mockup_back": {
-      "file": "mockup-back.png"
     }
   },
-  "created_at": "2026-11-23T18:02:21.419Z"
+  "history": [
+    {
+      "version": 1,
+      "manifest": "v1/drop.json",
+      "briefing": "v1/briefing.md"
+    }
+  ],
+  "created_at": "2026-11-23T18:47:10.531Z"
 }

@@ -6,7 +6,7 @@ import { integrationStatus, type IntegrationStatus } from "@/lib/env";
 import { isoDateInTZ, lastNDays } from "@/lib/dates";
 import { BRAND_MEMORY_SEED } from "@/lib/brand/identity";
 import type { Asset, AssetKind, BrandMemoryRow, Collection, Creation, CreationStatus } from "@/lib/types";
-import { listLocalDrops, localFileUrl, type LocalDrop } from "./local-drops";
+import { listLocalDrops, localFileUrl, localVariants, type DropVariant, type LocalDrop } from "./local-drops";
 
 /**
  * Cada bloco do dashboard carrega sozinho e diz o próprio estado:
@@ -24,7 +24,7 @@ export type DayCell = { date: string; status: CreationStatus | null };
 
 export type DashboardData = {
   today: string;
-  todayDrop: Block<{ creation: Creation | null; assets: Asset[] }>;
+  todayDrop: Block<{ creation: Creation | null; assets: Asset[]; variants?: DropVariant[] }>;
   strip: Block<DayCell[]>;
   collections: Block<Collection[]>;
   memory: Block<{ rows: Pick<BrandMemoryRow, "kind" | "content" | "source">[]; decisions: number }>;
@@ -41,7 +41,7 @@ const LOCAL_KINDS: Record<string, AssetKind> = {
   print_back: "print_back",
 };
 
-function localToCreation(d: LocalDrop): { creation: Creation; assets: Asset[] } {
+function localToCreation(d: LocalDrop): { creation: Creation; assets: Asset[]; variants: DropVariant[] } {
   const versionId = `local-${d.drop_date}-v${d.version}`;
   return {
     creation: {
@@ -63,6 +63,7 @@ function localToCreation(d: LocalDrop): { creation: Creation; assets: Asset[] } 
         storage_bucket: "local",
         storage_path: localFileUrl(d, k)!,
       })),
+    variants: localVariants(d),
   };
 }
 

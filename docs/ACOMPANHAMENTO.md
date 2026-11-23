@@ -61,8 +61,13 @@ Arquivo vivo: atualizar ao fim de cada etapa. Legenda: ✅ feito e verificado ·
 - ✅ Arquivos em `public/drops/2026-11-23/`: estampas frente (1181 × 709 px) e costas (3543 × 3803 px)
   em PNG transparente a 300 DPI e em SVG, mockups planos de frente e costas, `briefing.md` e `drop.json`.
 - ✅ Dashboard lê a criação dos arquivos locais enquanto o banco não está conectado.
-- ⬜ Decisão do diretor criativo (aprovar, rejeitar ou pedir ajustes).
-- ⬜ Medidas YouDraw a conferir antes de mandar para impressão.
+- ✅ v1 aprovada como direção, com ajustes pedidos.
+- ✅ v2: peito de 10 para 14 cm; faixas coloridas na frente e nas costas; 5 variações (uma por faixa),
+  todas com 4 graus. Script `scripts/render-drop-001-v2.mjs`, ferramentas em `scripts/lib/print-kit.mjs`.
+  v1 guardada em `public/drops/2026-11-23/v1/`.
+- ✅ Dashboard: seletor de faixa troca o mockup da frente.
+- ⬜ Decisão do diretor criativo sobre a v2.
+- ⬜ Medidas e reprodução de cor na YouDraw a conferir antes de imprimir.
 
 ## Próxima etapa recomendada (2)
 1. Criar o projeto Supabase, aplicar as migrations e preencher `.env.local`.

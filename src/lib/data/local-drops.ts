@@ -16,7 +16,21 @@ export type LocalDrop = {
   concept: string;
   garment: { type: string; color: string; ink: string[] };
   files: Record<string, { file: string; width_px?: number; height_px?: number; dpi?: number; width_mm?: number; height_mm?: number }>;
+  featured_variant?: string;
+  variants?: { slug: string; name: string; color: string; mockup_front: { file: string }; print_front: { file: string } }[];
 };
+
+export type DropVariant = { slug: string; name: string; color: string; mockup: string; print: string; featured: boolean };
+
+export const localVariants = (drop: LocalDrop): DropVariant[] =>
+  (drop.variants ?? []).map((v) => ({
+    slug: v.slug,
+    name: v.name,
+    color: v.color,
+    mockup: `/drops/${drop.drop_date}/${v.mockup_front.file}`,
+    print: `/drops/${drop.drop_date}/${v.print_front.file}`,
+    featured: v.slug === drop.featured_variant,
+  }));
 
 const DIR = path.join(process.cwd(), "public", "drops");
 

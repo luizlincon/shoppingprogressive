@@ -7,6 +7,7 @@ import { Card, BlockError } from "@/components/ui/Card";
 import { Pill } from "@/components/ui/Pill";
 import { ShirtSlot } from "./ShirtSlot";
 import { DropStrip } from "./DropStrip";
+import { VariantMockups } from "./VariantMockups";
 
 /*
  * Pergunta da tela: "Qual é a camiseta de hoje e ela já tem a minha decisão?"
@@ -29,7 +30,7 @@ function discovery(d: DashboardData): string {
     return "Nenhuma criação hoje. O banco ainda não está conectado e o pipeline de geração entra na etapa 2.";
   if (d.todayDrop.state === "error") return "O banco respondeu com erro ao buscar a criação de hoje.";
   if (d.todayDrop.state === "local" && c)
-    return `Drop 001, ${c.title}, aguarda a sua decisão. Criado nesta sessão, salvo em arquivos (sem banco).`;
+    return `Drop 001, ${c.title}, versão ${c.current_version_id?.split("-v").pop() ?? "1"}, aguarda a sua decisão. Criado nesta sessão, salvo em arquivos (sem banco).`;
   if (!c) return "Nenhuma criação gerada hoje ainda.";
   return `${c.title ?? "Criação sem título"}: ${STATUS_LABEL[c.status].toLowerCase()}.`;
 }
@@ -39,6 +40,7 @@ export async function Dashboard() {
   const creation = d.todayDrop.data.creation;
   const assets = d.todayDrop.data.assets;
   const hasAsset = (k: string) => assets.some((a) => a.kind === k);
+  const variants = d.todayDrop.data.variants ?? [];
   const assetUrl = (k: string) => {
     const a = assets.find((x) => x.kind === k);
     return a && a.storage_bucket === "local" ? a.storage_path : null;
@@ -81,10 +83,14 @@ export async function Dashboard() {
           className="lg:col-span-8"
         >
           {d.todayDrop.state === "error" ? <BlockError message={d.todayDrop.message} /> : null}
-          <div className="grid grid-cols-2 gap-4 md:gap-6">
-            <ShirtSlot side="front" src={assetUrl("mockup_front")} state={hasAsset("mockup_front") ? "Estampa de 10 cm no peito" : "Mockup frontal pendente"} />
-            <ShirtSlot side="back" src={assetUrl("mockup_back")} state={hasAsset("mockup_back") ? "Estampa de 30 cm nas costas" : "Mockup traseiro pendente"} />
-          </div>
+          {variants.length ? (
+            <VariantMockups variants={variants} back={assetUrl("mockup_back")} />
+          ) : (
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
+              <ShirtSlot side="front" src={assetUrl("mockup_front")} state={hasAsset("mockup_front") ? "Mockup pronto" : "Mockup frontal pendente"} />
+              <ShirtSlot side="back" src={assetUrl("mockup_back")} state={hasAsset("mockup_back") ? "Mockup pronto" : "Mockup traseiro pendente"} />
+            </div>
+          )}
           <p className={`mt-4 text-body ${creation?.concept ? "text-ink" : "text-muted"}`}>
             {creation?.concept ??
               "Moldes de frente e costas. A área tracejada é a área de estampa provisória: as medidas finais vêm da referência técnica da YouDraw."}
@@ -94,7 +100,7 @@ export async function Dashboard() {
               <a href={briefingUrl} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
                 Briefing completo
               </a>
-              {(["print_front", "print_back"] as const).map((k) =>
+              {(variants.length ? (["print_back"] as const) : (["print_front", "print_back"] as const)).map((k) =>
                 assetUrl(k) ? (
                   <a key={k} href={assetUrl(k)!} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
                     {k === "print_front" ? "Estampa frontal (PNG)" : "Estampa traseira (PNG)"}

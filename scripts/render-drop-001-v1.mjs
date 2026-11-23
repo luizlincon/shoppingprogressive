@@ -3,8 +3,8 @@
  * Desenha as estampas em vetor (texto convertido em curvas), exporta os PNGs de impressão
  * com fundo transparente a 300 DPI e compõe os mockups planos de frente e costas com Sharp.
  *
- * Uso: node scripts/render-drop-001.mjs
- * Saída: public/drops/2026-11-23/
+ * Uso: node scripts/render-drop-001-v1.mjs
+ * Saída: public/drops/2026-11-23/v1/ (versão 1, guardada no histórico)
  *
  * Medidas provisórias até a conferência na YouDraw: frente 100 × 60 mm, costas 300 × 400 mm.
  */
@@ -15,7 +15,7 @@ import opentype from "opentype.js";
 import sharp from "sharp";
 
 const require = createRequire(import.meta.url);
-const OUT = path.resolve("public/drops/2026-11-23");
+const OUT = path.resolve("public/drops/2026-11-23/v1");
 const DPI = 300;
 const MM = DPI / 25.4; // px por mm
 const INK = "#ffffff"; // tinta da estampa (camiseta preta)
