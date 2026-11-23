@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/*
+ * Identidade visual do Design Lab — estilo "moldura tingida, folha branca".
+ * A moldura (barra lateral + barra superior) é um tom só; o trabalho fica numa folha branca
+ * recuada 8px da direita e de baixo, borda de 1px, cantos de 16px, sem sombra.
+ * A cor da marca vai nos dados: o azul de faixa (--accent) marca a criação aprovada e o
+ * estado selecionado. O botão principal é quase preto. Ver docs/DECISOES.md (D-006).
+ */
+:root {
+  --ground: #f3f4f2; /* moldura: cinza de tatame, um degrau de verde-acinzentado */
+  --surface: #ffffff;
+  --raised: #f4f6f8;
+  --active: #e7e9e6;
+  --border: #e8eaec;
+  --rule: #f0f1f2;
+  --control: #cdced1;
+  --text: #131416;
+  --muted: #5d5f60;
+  --accent: #1f4f8f; /* azul de faixa */
+  --positive: #1e7b4f;
+  --negative: #c4242a;
+  --warning: #92400e;
+  --pill-positive-bg: #dcfae5;
+  --pill-positive-ink: #04250e;
+  --pill-negative-bg: #ffedea;
+  --pill-negative-ink: #831c1e;
+  --pill-warning-bg: #fffbeb;
+  --pill-warning-ink: #92400e;
+  --pill-neutral-bg: #ebedee;
+  --pill-neutral-ink: #353736;
+  --pill-accent-bg: #e6eef8;
+  --pill-accent-ink: #17396a;
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-active: var(--active);
+  --color-border: var(--border);
+  --color-rule: var(--rule);
+  --color-control: var(--control);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-warning: var(--warning);
+
+  --font-sans: var(--font-plex-sans), Inter, system-ui, sans-serif;
+
+  --text-title: 22px;
+  --text-title--line-height: 28px;
+  --text-section: 16px;
+  --text-section--line-height: 22px;
+  --text-kpi: 28px;
+  --text-kpi--line-height: 32px;
+  --text-body: 14px;
+  --text-body--line-height: 20px;
+  --text-small: 12px;
+  --text-small--line-height: 16px;
+
+  --radius-card: 8px;
+  --radius-control: 6px;
+  --radius-sheet: 16px;
+}
+
+html,
+body {
+  background: var(--ground);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: #d6e2f3;
+}
+
+/* Feedback de controles: só transform e cor; sem deslocamento com movimento reduzido. */
+.press {
+  transition:
+    background-color 120ms ease,
+    transform 120ms ease;
+}
+.press:active:not(:disabled) {
+  transform: translateY(1px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .press {
+    transition: none;
+  }
+  .press:active:not(:disabled) {
+    transform: none;
+  }
+}
