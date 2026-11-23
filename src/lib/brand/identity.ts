@@ -29,6 +29,34 @@ export const BRAND_MEMORY_SEED: BrandMemorySeed[] = [
   },
   { kind: "principle", content: "Uma camiseta original por dia, com frente e costas." },
   { kind: "avoid", content: "Nunca aprovar, publicar ou vender automaticamente." },
+
+  // Referência 1 — Art of Jiu Jitsu, Adult Apparel (artofjiujitsu.com/collections/adult-apparel),
+  // indicada pelo diretor criativo em 23/11/2026. Ver docs/REFERENCIAS.md.
+  {
+    kind: "reference",
+    content:
+      "Art of Jiu Jitsu (Adult Apparel): minimalismo monocromático, camiseta preta com estampa pequena no peito e a mensagem maior nas costas.",
+  },
+  {
+    kind: "preference",
+    content:
+      "Tipografia como estampa: caixa-alta em sans condensada, nome ou sigla dentro de uma barra ou caixa sólida, sem ilustração.",
+  },
+  {
+    kind: "preference",
+    content:
+      "Estampa traseira em blocos empilhados que contam origem: lugar, academia e ano de fundação, no estilo de etiqueta.",
+  },
+  {
+    kind: "preference",
+    content:
+      "Paleta contida: preto, branco e tons terrosos (marrom); a cor da peça faz parte do design.",
+  },
+  {
+    kind: "avoid",
+    content:
+      "Não copiar a Art of Jiu Jitsu: nada de nomes, siglas, logos, textos em japonês ou layouts idênticos aos dela. Absorver os princípios, criar com a identidade Progressive BJJ.",
+  },
 ];
 
 export const MEMORY_KIND_LABEL: Record<MemoryKind, string> = {

@@ -49,6 +49,12 @@ Arquivo vivo: atualizar ao fim de cada etapa. Legenda: ✅ feito e verificado ·
 - Vercel: conectar o repositório para o deploy.
 - YouDraw: conferir e cadastrar as medidas reais de impressão (D-007).
 
+## Referências — 23/11/2026
+- ✅ R-1 Art of Jiu Jitsu (Adult Apparel) analisada e registrada: `docs/REFERENCIAS.md`,
+  `supabase/migrations/0003_reference_art_of_jiu_jitsu.sql` e a base local em `src/lib/brand/identity.ts`
+  (5 entradas: 1 referência, 3 preferências, 1 regra de não copiar).
+- ⬜ Faltam dados da Progressive BJJ para esse caminho: cidade, academias, ano de fundação, sigla e logotipo.
+
 ## Próxima etapa recomendada (2)
 1. Criar o projeto Supabase, aplicar as migrations e preencher `.env.local`.
 2. Login por link mágico (Supabase Auth) para um único diretor criativo.

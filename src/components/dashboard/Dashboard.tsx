@@ -164,6 +164,11 @@ export async function Dashboard() {
               </li>
             ))}
           </ul>
+          {d.memory.data.rows.length > 5 ? (
+            <Link href="/brand-memory" className="mt-2 text-body font-medium underline-offset-4 hover:underline">
+              Mais {d.memory.data.rows.length - 5} na Brand Memory
+            </Link>
+          ) : null}
           <p className="mt-3 text-body text-muted">
             <span className="tabular font-medium text-ink">{d.memory.data.decisions}</span> decisões registradas.
             Cada aprovação ou rejeição com motivo vira um aprendizado.

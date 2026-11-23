@@ -21,7 +21,7 @@ Abra http://localhost:3000. Sem credenciais, o app funciona e mostra os estados 
 ## Banco de dados (Supabase)
 
 1. Crie um projeto em supabase.com.
-2. No SQL Editor, rode em ordem `supabase/migrations/0001_init.sql` e `0002_seed_brand_memory.sql`.
+2. No SQL Editor, rode em ordem os arquivos de `supabase/migrations/` (0001, 0002, 0003…).
 3. Copie a URL e as chaves (Project Settings › API) para `.env.local`.
 
 ## Scripts
@@ -38,3 +38,4 @@ Abra http://localhost:3000. Sem credenciais, o app funciona e mostra os estados 
 - [Arquitetura](docs/ARQUITETURA.md): módulos, fluxo de uma criação, banco e regras.
 - [Decisões](docs/DECISOES.md): o que foi decidido e por quê.
 - [Acompanhamento](docs/ACOMPANHAMENTO.md): estado de cada etapa e próximos passos.
+- [Referências](docs/REFERENCIAS.md): referências criativas e o que levar de cada uma.
