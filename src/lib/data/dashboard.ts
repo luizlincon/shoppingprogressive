@@ -5,7 +5,8 @@ import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { integrationStatus, type IntegrationStatus } from "@/lib/env";
 import { isoDateInTZ, lastNDays } from "@/lib/dates";
 import { BRAND_MEMORY_SEED } from "@/lib/brand/identity";
-import type { Asset, BrandMemoryRow, Collection, Creation, CreationStatus } from "@/lib/types";
+import type { Asset, AssetKind, BrandMemoryRow, Collection, Creation, CreationStatus } from "@/lib/types";
+import { listLocalDrops, localFileUrl, type LocalDrop } from "./local-drops";
 
 /**
  * Cada bloco do dashboard carrega sozinho e diz o próprio estado:
@@ -15,6 +16,7 @@ import type { Asset, BrandMemoryRow, Collection, Creation, CreationStatus } from
  */
 export type Block<T> =
   | { state: "ok"; data: T }
+  | { state: "local"; data: T } // lido de public/drops/ (sem banco conectado)
   | { state: "unconfigured"; data: T }
   | { state: "error"; data: T; message: string };
 
@@ -31,6 +33,38 @@ export type DashboardData = {
 };
 
 const STRIP_DAYS = 30;
+
+const LOCAL_KINDS: Record<string, AssetKind> = {
+  mockup_front: "mockup_front",
+  mockup_back: "mockup_back",
+  print_front: "print_front",
+  print_back: "print_back",
+};
+
+function localToCreation(d: LocalDrop): { creation: Creation; assets: Asset[] } {
+  const versionId = `local-${d.drop_date}-v${d.version}`;
+  return {
+    creation: {
+      id: `local-${d.drop_date}`,
+      drop_date: d.drop_date,
+      title: d.title,
+      concept: d.concept,
+      status: d.status,
+      collection_id: null,
+      current_version_id: versionId,
+      created_at: d.drop_date,
+    },
+    assets: Object.keys(d.files)
+      .filter((k) => k in LOCAL_KINDS)
+      .map((k) => ({
+        id: `${versionId}-${k}`,
+        version_id: versionId,
+        kind: LOCAL_KINDS[k],
+        storage_bucket: "local",
+        storage_path: localFileUrl(d, k)!,
+      })),
+  };
+}
 
 export async function getDashboardData(): Promise<DashboardData> {
   await connection(); // dados de hoje: sempre no momento da requisição
@@ -54,10 +88,25 @@ export async function getDashboardData(): Promise<DashboardData> {
 
   const supabase = await getSupabaseServerClient();
   if (!supabase) {
+    // Sem banco: usa as criações guardadas como arquivo em public/drops/.
+    const local = await listLocalDrops();
+    const todayLocal = local.find((d) => d.drop_date === today) ?? null;
+    const todayDrop: DashboardData["todayDrop"] = todayLocal
+      ? { state: "local", data: localToCreation(todayLocal) }
+      : { state: "unconfigured", data: { creation: null, assets: [] } };
+    const strip: DashboardData["strip"] = local.length
+      ? {
+          state: "local",
+          data: emptyStrip.map((c) => ({
+            ...c,
+            status: local.find((d) => d.drop_date === c.date)?.status ?? null,
+          })),
+        }
+      : { state: "unconfigured", data: emptyStrip };
     return {
       ...base,
-      todayDrop: { state: "unconfigured", data: { creation: null, assets: [] } },
-      strip: { state: "unconfigured", data: emptyStrip },
+      todayDrop,
+      strip,
       collections: { state: "unconfigured", data: [] },
       memory: { state: "unconfigured", data: { rows: seedMemory, decisions: 0 } },
     };

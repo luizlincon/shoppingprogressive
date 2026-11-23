@@ -1,10 +1,32 @@
+import Image from "next/image";
+
 /**
  * Espaço do mockup: a silhueta-base da camiseta (frente ou costas) com a área de estampa tracejada.
  * Não é um mockup gerado: é o molde onde o Mockup Engine vai compor a estampa.
  * As medidas da área de impressão serão as da referência técnica da YouDraw, ainda a confirmar.
  */
-export function ShirtSlot({ side, state }: { side: "front" | "back"; state: string }) {
+export function ShirtSlot({ side, state, src }: { side: "front" | "back"; state: string; src?: string | null }) {
   const label = side === "front" ? "Frente" : "Costas";
+  if (src) {
+    return (
+      <figure className="flex min-w-0 flex-col">
+        <a href={src} target="_blank" rel="noreferrer" className="press block overflow-hidden rounded-card bg-[#eef0f1]">
+          <Image
+            src={src}
+            alt={`Mockup ${label.toLowerCase()} da criação do dia`}
+            width={1920}
+            height={2040}
+            sizes="(min-width: 1024px) 360px, 45vw"
+            className="aspect-[4/5] h-auto w-full object-cover object-[50%_40%]"
+          />
+        </a>
+        <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-x-3">
+          <span className="font-medium">{label}</span>
+          <span className="text-small text-muted">{state}</span>
+        </figcaption>
+      </figure>
+    );
+  }
   // Gola: a frente desce mais que as costas.
   return (
     <figure className="flex min-w-0 flex-col">

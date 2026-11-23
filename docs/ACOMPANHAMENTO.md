@@ -55,6 +55,15 @@ Arquivo vivo: atualizar ao fim de cada etapa. Legenda: ✅ feito e verificado ·
   (5 entradas: 1 referência, 3 preferências, 1 regra de não copiar).
 - ⬜ Faltam dados da Progressive BJJ para esse caminho: cidade, academias, ano de fundação, sigla e logotipo.
 
+## Drop 001 — Grau por Grau — 23/11/2026
+- ✅ Primeira criação, feita de forma assistida nesta sessão (o pipeline automático continua sendo a etapa 2).
+- ✅ Estampas desenhadas em vetor (`scripts/render-drop-001.mjs`), texto em curvas, Barlow Condensed (OFL).
+- ✅ Arquivos em `public/drops/2026-11-23/`: estampas frente (1181 × 709 px) e costas (3543 × 3803 px)
+  em PNG transparente a 300 DPI e em SVG, mockups planos de frente e costas, `briefing.md` e `drop.json`.
+- ✅ Dashboard lê a criação dos arquivos locais enquanto o banco não está conectado.
+- ⬜ Decisão do diretor criativo (aprovar, rejeitar ou pedir ajustes).
+- ⬜ Medidas YouDraw a conferir antes de mandar para impressão.
+
 ## Próxima etapa recomendada (2)
 1. Criar o projeto Supabase, aplicar as migrations e preencher `.env.local`.
 2. Login por link mágico (Supabase Auth) para um único diretor criativo.

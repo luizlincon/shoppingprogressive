@@ -28,6 +28,8 @@ function discovery(d: DashboardData): string {
   if (d.todayDrop.state === "unconfigured")
     return "Nenhuma criação hoje. O banco ainda não está conectado e o pipeline de geração entra na etapa 2.";
   if (d.todayDrop.state === "error") return "O banco respondeu com erro ao buscar a criação de hoje.";
+  if (d.todayDrop.state === "local" && c)
+    return `Drop 001, ${c.title}, aguarda a sua decisão. Criado nesta sessão, salvo em arquivos (sem banco).`;
   if (!c) return "Nenhuma criação gerada hoje ainda.";
   return `${c.title ?? "Criação sem título"}: ${STATUS_LABEL[c.status].toLowerCase()}.`;
 }
@@ -37,6 +39,11 @@ export async function Dashboard() {
   const creation = d.todayDrop.data.creation;
   const assets = d.todayDrop.data.assets;
   const hasAsset = (k: string) => assets.some((a) => a.kind === k);
+  const assetUrl = (k: string) => {
+    const a = assets.find((x) => x.kind === k);
+    return a && a.storage_bucket === "local" ? a.storage_path : null;
+  };
+  const briefingUrl = d.todayDrop.state === "local" && creation ? `/drops/${creation.drop_date}/briefing.md` : null;
   const generationReady = d.integrations.every((i) => i.configured);
   const configured = d.integrations.filter((i) => i.configured).length;
 
@@ -75,13 +82,27 @@ export async function Dashboard() {
         >
           {d.todayDrop.state === "error" ? <BlockError message={d.todayDrop.message} /> : null}
           <div className="grid grid-cols-2 gap-4 md:gap-6">
-            <ShirtSlot side="front" state={hasAsset("mockup_front") ? "Mockup pronto" : "Mockup frontal pendente"} />
-            <ShirtSlot side="back" state={hasAsset("mockup_back") ? "Mockup pronto" : "Mockup traseiro pendente"} />
+            <ShirtSlot side="front" src={assetUrl("mockup_front")} state={hasAsset("mockup_front") ? "Estampa de 10 cm no peito" : "Mockup frontal pendente"} />
+            <ShirtSlot side="back" src={assetUrl("mockup_back")} state={hasAsset("mockup_back") ? "Estampa de 30 cm nas costas" : "Mockup traseiro pendente"} />
           </div>
-          <p className="mt-4 text-body text-muted">
+          <p className={`mt-4 text-body ${creation?.concept ? "text-ink" : "text-muted"}`}>
             {creation?.concept ??
               "Moldes de frente e costas. A área tracejada é a área de estampa provisória: as medidas finais vêm da referência técnica da YouDraw."}
           </p>
+          {briefingUrl ? (
+            <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-body">
+              <a href={briefingUrl} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
+                Briefing completo
+              </a>
+              {(["print_front", "print_back"] as const).map((k) =>
+                assetUrl(k) ? (
+                  <a key={k} href={assetUrl(k)!} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
+                    {k === "print_front" ? "Estampa frontal (PNG)" : "Estampa traseira (PNG)"}
+                  </a>
+                ) : null,
+              )}
+            </p>
+          ) : null}
         </Card>
 
         {/* Coluna da decisão */}
@@ -95,10 +116,14 @@ export async function Dashboard() {
                     : del.kind === "youdraw"
                       ? false
                       : hasAsset(del.kind);
+                // Os PNGs saem a 300 DPI, mas as medidas da YouDraw ainda não foram conferidas.
+                const youdrawPending = del.kind === "youdraw" && hasAsset("print_front") && hasAsset("print_back");
                 return (
                   <div key={del.kind} className="flex h-10 items-center justify-between gap-3 border-b border-rule last:border-b-0">
                     <dt>{del.label}</dt>
-                    <dd className={ready ? "text-ink" : "text-muted"}>{ready ? "Pronto" : "–"}</dd>
+                    <dd className={ready ? "text-ink" : youdrawPending ? "text-warning" : "text-muted"}>
+                      {ready ? "Pronto" : youdrawPending ? "Medidas a conferir" : "–"}
+                    </dd>
                   </div>
                 );
               })}
@@ -141,7 +166,13 @@ export async function Dashboard() {
         <Card
           id="faixa"
           title="Últimos 30 dias"
-          aside={d.strip.state === "unconfigured" ? "Sem banco conectado: histórico vazio" : "Uma criação por dia"}
+          aside={
+            d.strip.state === "unconfigured"
+              ? "Sem banco conectado: histórico vazio"
+              : d.strip.state === "local"
+                ? "Lido dos arquivos locais"
+                : "Uma criação por dia"
+          }
           className="lg:col-span-12"
         >
           {d.strip.state === "error" ? <BlockError message={d.strip.message} /> : null}

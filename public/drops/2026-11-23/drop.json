@@ -1,0 +1,44 @@
+{
+  "drop_date": "2026-11-23",
+  "number": 1,
+  "title": "Grau por Grau",
+  "version": 1,
+  "status": "ready_for_review",
+  "concept": "Progredir no Jiu-Jitsu é ganhar um grau de cada vez. Na frente, PROGRESSIVE sobre uma faixa com quatro graus; nas costas, a escada da branca à preta.",
+  "garment": {
+    "type": "Camiseta",
+    "color": "Preta",
+    "ink": [
+      "Branco"
+    ]
+  },
+  "origin": "Criação assistida na sessão de desenvolvimento; pipeline automático na etapa 2.",
+  "provisional_specs": "Medidas provisórias até a conferência na YouDraw.",
+  "files": {
+    "print_front": {
+      "file": "print-front.png",
+      "width_px": 1181,
+      "height_px": 709,
+      "dpi": 300,
+      "width_mm": 100,
+      "height_mm": 60,
+      "transparent": true
+    },
+    "print_back": {
+      "file": "print-back.png",
+      "width_px": 3543,
+      "height_px": 3803,
+      "dpi": 300,
+      "width_mm": 300,
+      "height_mm": 322,
+      "transparent": true
+    },
+    "mockup_front": {
+      "file": "mockup-front.png"
+    },
+    "mockup_back": {
+      "file": "mockup-back.png"
+    }
+  },
+  "created_at": "2026-11-23T18:02:21.419Z"
+}
