@@ -1,6 +1,6 @@
 # Drop 001 — Grau por Grau
 
-**Data:** 23/11/2026 · **Versão:** 2 · **Status:** aguardando decisão do diretor criativo
+**Data:** 23/11/2026 · **Versão:** 2 · **Status:** ✅ aprovada pelo diretor criativo em 23/11/2026
 **Origem:** criação assistida na sessão de desenvolvimento (o pipeline automático é a etapa 2).
 **Versão anterior:** `v1/briefing.md` (aprovada como direção; pedidos de ajuste abaixo).
 

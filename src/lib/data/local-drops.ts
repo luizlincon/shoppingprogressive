@@ -17,8 +17,22 @@ export type LocalDrop = {
   garment: { type: string; color: string; ink: string[] };
   files: Record<string, { file: string; width_px?: number; height_px?: number; dpi?: number; width_mm?: number; height_mm?: number }>;
   featured_variant?: string;
+  decision?: LocalDecision;
+  history?: { version: number; decision?: { decision: string } }[];
   variants?: { slug: string; name: string; color: string; mockup_front: { file: string }; print_front: { file: string } }[];
 };
+
+export type LocalDecision = {
+  decision: "approved" | "rejected" | "changes_requested";
+  version: number;
+  decided_at: string;
+  decided_by: string;
+  reason?: string;
+};
+
+/** Decisões registradas nos arquivos: a atual mais as das versões anteriores. */
+export const countLocalDecisions = (drops: LocalDrop[]) =>
+  drops.reduce((n, d) => n + (d.decision ? 1 : 0) + (d.history ?? []).filter((h) => h.decision).length, 0);
 
 export type DropVariant = { slug: string; name: string; color: string; mockup: string; print: string; featured: boolean };
 

@@ -6,7 +6,15 @@ import { integrationStatus, type IntegrationStatus } from "@/lib/env";
 import { isoDateInTZ, lastNDays } from "@/lib/dates";
 import { BRAND_MEMORY_SEED } from "@/lib/brand/identity";
 import type { Asset, AssetKind, BrandMemoryRow, Collection, Creation, CreationStatus } from "@/lib/types";
-import { listLocalDrops, localFileUrl, localVariants, type DropVariant, type LocalDrop } from "./local-drops";
+import {
+  countLocalDecisions,
+  listLocalDrops,
+  localFileUrl,
+  localVariants,
+  type DropVariant,
+  type LocalDecision,
+  type LocalDrop,
+} from "./local-drops";
 
 /**
  * Cada bloco do dashboard carrega sozinho e diz o próprio estado:
@@ -24,7 +32,7 @@ export type DayCell = { date: string; status: CreationStatus | null };
 
 export type DashboardData = {
   today: string;
-  todayDrop: Block<{ creation: Creation | null; assets: Asset[]; variants?: DropVariant[] }>;
+  todayDrop: Block<{ creation: Creation | null; assets: Asset[]; variants?: DropVariant[]; decision?: LocalDecision }>;
   strip: Block<DayCell[]>;
   collections: Block<Collection[]>;
   memory: Block<{ rows: Pick<BrandMemoryRow, "kind" | "content" | "source">[]; decisions: number }>;
@@ -41,7 +49,12 @@ const LOCAL_KINDS: Record<string, AssetKind> = {
   print_back: "print_back",
 };
 
-function localToCreation(d: LocalDrop): { creation: Creation; assets: Asset[]; variants: DropVariant[] } {
+function localToCreation(d: LocalDrop): {
+  creation: Creation;
+  assets: Asset[];
+  variants: DropVariant[];
+  decision?: LocalDecision;
+} {
   const versionId = `local-${d.drop_date}-v${d.version}`;
   return {
     creation: {
@@ -64,6 +77,7 @@ function localToCreation(d: LocalDrop): { creation: Creation; assets: Asset[]; v
         storage_path: localFileUrl(d, k)!,
       })),
     variants: localVariants(d),
+    decision: d.decision,
   };
 }
 
@@ -109,7 +123,7 @@ export async function getDashboardData(): Promise<DashboardData> {
       todayDrop,
       strip,
       collections: { state: "unconfigured", data: [] },
-      memory: { state: "unconfigured", data: { rows: seedMemory, decisions: 0 } },
+      memory: { state: "unconfigured", data: { rows: seedMemory, decisions: countLocalDecisions(local) } },
     };
   }
 

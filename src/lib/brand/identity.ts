@@ -57,6 +57,28 @@ export const BRAND_MEMORY_SEED: BrandMemorySeed[] = [
     content:
       "Não copiar a Art of Jiu Jitsu: nada de nomes, siglas, logos, textos em japonês ou layouts idênticos aos dela. Absorver os princípios, criar com a identidade Progressive BJJ.",
   },
+
+  // Aprendizados do Drop 001 "Grau por Grau" — v1 com ajustes pedidos, v2 aprovada em 23/11/2026.
+  {
+    kind: "learning",
+    content:
+      "Aprovado (Drop 001): a faixa e os graus como linguagem visual da marca. O nome Progressive conversa com a progressão de graduação.",
+  },
+  {
+    kind: "learning",
+    content:
+      "Aprovado (Drop 001): uma camiseta por faixa. O atleta compra a da sua graduação; vale pensar linhas com variações por faixa.",
+  },
+  {
+    kind: "learning",
+    content:
+      "Aprovado (Drop 001): cores reais das faixas (branca, azul, roxa, marrom, preta com ponteira vermelha), sempre com os 4 graus.",
+  },
+  {
+    kind: "learning",
+    content:
+      "Ajuste pedido (Drop 001 v1): estampa de peito de 10 cm ficou pequena; o diretor prefere cerca de 14 cm de largura no peito.",
+  },
 ];
 
 export const MEMORY_KIND_LABEL: Record<MemoryKind, string> = {

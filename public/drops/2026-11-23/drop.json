@@ -3,7 +3,7 @@
   "number": 1,
   "title": "Grau por Grau",
   "version": 2,
-  "status": "ready_for_review",
+  "status": "approved",
   "concept": "Uma camiseta para cada faixa: na frente, PROGRESSIVE sobre a sua faixa com os quatro graus; nas costas, a escada colorida da branca à preta.",
   "garment": {
     "type": "Camiseta",
@@ -148,8 +148,25 @@
     {
       "version": 1,
       "manifest": "v1/drop.json",
-      "briefing": "v1/briefing.md"
+      "briefing": "v1/briefing.md",
+      "decision": {
+        "decision": "changes_requested",
+        "note": "Ficou bom; pediu peito maior, cores das faixas e uma camiseta por faixa."
+      }
     }
   ],
-  "created_at": "2026-11-23T18:47:10.531Z"
+  "created_at": "2026-11-23T18:47:10.531Z",
+  "decision": {
+    "decision": "approved",
+    "version": 2,
+    "decided_at": "2026-11-23T19:04:03.917Z",
+    "decided_by": "Diretor criativo (mensagem no chat da sessão)",
+    "reason": "Aprovou a v2 depois de pedir, sobre a v1: peito maior, cada faixa na sua cor (frente e costas) e uma camiseta por faixa, todas com 4 graus.",
+    "tags": [
+      "linha-por-faixa",
+      "faixas-coloridas",
+      "tipografia",
+      "peito-14cm"
+    ]
+  }
 }

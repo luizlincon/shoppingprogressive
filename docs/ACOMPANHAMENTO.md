@@ -66,7 +66,9 @@ Arquivo vivo: atualizar ao fim de cada etapa. Legenda: ✅ feito e verificado ·
   todas com 4 graus. Script `scripts/render-drop-001-v2.mjs`, ferramentas em `scripts/lib/print-kit.mjs`.
   v1 guardada em `public/drops/2026-11-23/v1/`.
 - ✅ Dashboard: seletor de faixa troca o mockup da frente.
-- ⬜ Decisão do diretor criativo sobre a v2.
+- ✅ **v2 aprovada** pelo diretor criativo em 23/11/2026 (decisão dada no chat, registrada em `drop.json`).
+- ✅ 4 aprendizados na Brand Memory (`identity.ts` e migration `0004_learnings_drop_001.sql`).
+  Sem login ainda, a decisão não está em `approvals`; ao migrar para o banco, registrar pela tela de Aprovações.
 - ⬜ Medidas e reprodução de cor na YouDraw a conferir antes de imprimir.
 
 ## Próxima etapa recomendada (2)

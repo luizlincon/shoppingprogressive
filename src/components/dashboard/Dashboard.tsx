@@ -29,10 +29,23 @@ function discovery(d: DashboardData): string {
   if (d.todayDrop.state === "unconfigured")
     return "Nenhuma criação hoje. O banco ainda não está conectado e o pipeline de geração entra na etapa 2.";
   if (d.todayDrop.state === "error") return "O banco respondeu com erro ao buscar a criação de hoje.";
+  if (d.todayDrop.state === "local" && c && c.status === "approved")
+    return `Drop 001, ${c.title}, versão ${d.todayDrop.data.decision?.version ?? ""}, aprovada. Próximo passo: conferir medidas e cores com a YouDraw.`;
   if (d.todayDrop.state === "local" && c)
     return `Drop 001, ${c.title}, versão ${c.current_version_id?.split("-v").pop() ?? "1"}, aguarda a sua decisão. Criado nesta sessão, salvo em arquivos (sem banco).`;
   if (!c) return "Nenhuma criação gerada hoje ainda.";
   return `${c.title ?? "Criação sem título"}: ${STATUS_LABEL[c.status].toLowerCase()}.`;
+}
+
+function decidedAt(iso: string) {
+  return new Intl.DateTimeFormat("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(iso));
 }
 
 export async function Dashboard() {
@@ -41,6 +54,12 @@ export async function Dashboard() {
   const assets = d.todayDrop.data.assets;
   const hasAsset = (k: string) => assets.some((a) => a.kind === k);
   const variants = d.todayDrop.data.variants ?? [];
+  const decision = d.todayDrop.data.decision;
+  // Aprendizados primeiro (o mais recente no topo): é o que mudou na memória por causa das decisões.
+  const memoryRows = [
+    ...d.memory.data.rows.filter((m) => m.kind === "learning").reverse(),
+    ...d.memory.data.rows.filter((m) => m.kind !== "learning"),
+  ];
   const assetUrl = (k: string) => {
     const a = assets.find((x) => x.kind === k);
     return a && a.storage_bucket === "local" ? a.storage_path : null;
@@ -113,7 +132,7 @@ export async function Dashboard() {
 
         {/* Coluna da decisão */}
         <div className="flex flex-col gap-6 lg:col-span-4">
-          <Card id="decisao" title="Sua decisão" aside={creation ? "Versão atual" : "Nada para decidir"}>
+          <Card id="decisao" title="Sua decisão" aside={decision ? "Decidida" : creation ? "Versão atual" : "Nada para decidir"}>
             <dl className="flex flex-col">
               {DELIVERABLES.map((del) => {
                 const ready =
@@ -134,14 +153,26 @@ export async function Dashboard() {
                 );
               })}
             </dl>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <button type="button" disabled className="press h-9 rounded-control border border-control font-medium disabled:cursor-not-allowed disabled:text-muted">
-                Rejeitar
-              </button>
-              <button type="button" disabled className="press h-9 rounded-control border border-control font-medium disabled:cursor-not-allowed disabled:text-muted">
-                Aprovar
-              </button>
-            </div>
+            {decision ? (
+              <div className="mt-4 rounded-card bg-[var(--pill-accent-bg)] px-3 py-2.5 text-[var(--pill-accent-ink)]">
+                <p className="font-medium">
+                  {decision.decision === "approved" ? "Aprovada" : decision.decision === "rejected" ? "Rejeitada" : "Ajustes pedidos"}{" "}
+                  · versão {decision.version}
+                </p>
+                <p className="text-small">
+                  {decidedAt(decision.decided_at)} · {decision.decided_by}
+                </p>
+              </div>
+            ) : (
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <button type="button" disabled className="press h-9 rounded-control border border-control font-medium disabled:cursor-not-allowed disabled:text-muted">
+                  Rejeitar
+                </button>
+                <button type="button" disabled className="press h-9 rounded-control border border-control font-medium disabled:cursor-not-allowed disabled:text-muted">
+                  Aprovar
+                </button>
+              </div>
+            )}
           </Card>
 
           <Card
@@ -194,7 +225,7 @@ export async function Dashboard() {
         >
           {d.memory.state === "error" ? <BlockError message={d.memory.message} /> : null}
           <ul className="flex flex-col">
-            {d.memory.data.rows.slice(0, 5).map((m, i) => (
+            {memoryRows.slice(0, 5).map((m, i) => (
               <li key={i} className="grid grid-cols-[96px_1fr] gap-3 border-b border-rule py-2.5 last:border-b-0">
                 <span className="text-muted">{MEMORY_KIND_LABEL[m.kind]}</span>
                 <span>{m.content}</span>
