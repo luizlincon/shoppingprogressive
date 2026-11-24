@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "grafica": "node scripts/export-grafica.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.12.0",

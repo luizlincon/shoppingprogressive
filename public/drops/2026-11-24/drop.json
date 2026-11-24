@@ -1,0 +1,160 @@
+{
+  "drop_date": "2026-11-24",
+  "number": 2,
+  "title": "Progressive Kids",
+  "version": 1,
+  "status": "ready_for_review",
+  "concept": "Linha infantil. Na frente, PROGRESSIVE sobre uma faixa preta com KIDS; nas costas, o menino super-herói e a menina bailarina, os dois de kimono e faixa preta.",
+  "garment": {
+    "type": "Camiseta infantil",
+    "color": "Branca",
+    "ink": [
+      "Preto",
+      "Vermelho",
+      "Azul",
+      "Rosa",
+      "Pele",
+      "Marrom",
+      "Dourado"
+    ]
+  },
+  "origin": "Ideia do diretor criativo; criação assistida na sessão de desenvolvimento.",
+  "provisional_specs": "Medidas provisórias para o tamanho 8 até a conferência na YouDraw.",
+  "featured_variant": "menino",
+  "variant_text": {
+    "legend": "Mesma frente, costas diferentes para menino e menina",
+    "front_note": "estampa de 10 cm (infantil)",
+    "back_note": "estampa de 22 cm (infantil)"
+  },
+  "variants": [
+    {
+      "slug": "menino",
+      "name": "Menino",
+      "color": "#1f4f8f",
+      "print_front": {
+        "file": "print-front.png",
+        "svg": "print-front.svg",
+        "width_px": 1181,
+        "height_px": 437,
+        "dpi": 300,
+        "width_mm": 100,
+        "height_mm": 37,
+        "transparent": true
+      },
+      "mockup_front": {
+        "file": "mockup-front.png"
+      },
+      "print_back": {
+        "file": "print-back-menino.png",
+        "svg": "print-back-menino.svg",
+        "width_px": 2598,
+        "height_px": 3366,
+        "dpi": 300,
+        "width_mm": 220,
+        "height_mm": 285,
+        "transparent": true
+      },
+      "mockup_back": {
+        "file": "mockup-back-menino.png"
+      }
+    },
+    {
+      "slug": "menina",
+      "name": "Menina",
+      "color": "#f4a9be",
+      "print_front": {
+        "file": "print-front.png",
+        "svg": "print-front.svg",
+        "width_px": 1181,
+        "height_px": 437,
+        "dpi": 300,
+        "width_mm": 100,
+        "height_mm": 37,
+        "transparent": true
+      },
+      "mockup_front": {
+        "file": "mockup-front.png"
+      },
+      "print_back": {
+        "file": "print-back-menina.png",
+        "svg": "print-back-menina.svg",
+        "width_px": 2598,
+        "height_px": 3248,
+        "dpi": 300,
+        "width_mm": 220,
+        "height_mm": 275,
+        "transparent": true
+      },
+      "mockup_back": {
+        "file": "mockup-back-menina.png"
+      }
+    }
+  ],
+  "files": {
+    "mockup_front": {
+      "file": "mockup-front.png"
+    },
+    "mockup_back": {
+      "file": "mockup-back-menino.png"
+    },
+    "print_front": {
+      "file": "print-front.png",
+      "svg": "print-front.svg",
+      "width_px": 1181,
+      "height_px": 437,
+      "dpi": 300,
+      "width_mm": 100,
+      "height_mm": 37,
+      "transparent": true
+    },
+    "print_back": {
+      "file": "print-back-menino.png",
+      "svg": "print-back-menino.svg",
+      "width_px": 2598,
+      "height_px": 3366,
+      "dpi": 300,
+      "width_mm": 220,
+      "height_mm": 285,
+      "transparent": true
+    }
+  },
+  "created_at": "2026-11-24T17:41:50.901Z",
+  "print_files": {
+    "tool": "VectorCraft (ArtCraft), local",
+    "color_profile": "Padrão do VectorCraft — conferir com a YouDraw",
+    "generated_at": "2026-11-24T19:08:39.648Z",
+    "files": {
+      "print-front.svg": {
+        "pdf": "grafica/print-front-cmyk.pdf",
+        "ai": "grafica/print-front.ai",
+        "eps": "grafica/print-front.eps",
+        "color_mode": "cmyk",
+        "width_mm": 100,
+        "height_mm": 37,
+        "warnings": []
+      },
+      "print-back-menino.svg": {
+        "pdf": "grafica/print-back-menino-cmyk.pdf",
+        "ai": "grafica/print-back-menino.ai",
+        "eps": "grafica/print-back-menino.eps",
+        "color_mode": "cmyk",
+        "width_mm": 220,
+        "height_mm": 285,
+        "warnings": [
+          "transparency is flattened into opaque art and images (EPS has none): see the flattener preset"
+        ]
+      },
+      "print-back-menina.svg": {
+        "pdf": "grafica/print-back-menina-cmyk.pdf",
+        "ai": "grafica/print-back-menina.ai",
+        "eps": "grafica/print-back-menina.eps",
+        "color_mode": "cmyk",
+        "width_mm": 220,
+        "height_mm": 275,
+        "warnings": [
+          "transparency is flattened into opaque art and images (EPS has none): see the flattener preset"
+        ]
+      }
+    }
+  }
+}

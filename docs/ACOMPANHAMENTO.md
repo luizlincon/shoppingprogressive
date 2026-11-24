@@ -71,6 +71,22 @@ Arquivo vivo: atualizar ao fim de cada etapa. Legenda: ✅ feito e verificado ·
   Sem login ainda, a decisão não está em `approvals`; ao migrar para o banco, registrar pela tela de Aprovações.
 - ⬜ Medidas e reprodução de cor na YouDraw a conferir antes de imprimir.
 
+## Drop 002 — Progressive Kids — 24/11/2026
+- ✅ Ideia do diretor criativo: linha infantil, mesma frente (PROGRESSIVE KIDS) e costas por modelo:
+  menino super-herói e menina bailarina, os dois de kimono e faixa preta.
+- ✅ Ilustrações desenhadas em vetor (`scripts/render-drop-002.mjs`); camiseta branca infantil (proposta).
+- ✅ Arquivos em `public/drops/2026-11-24/`: frente 100 mm, costas 220 mm (PNG 300 DPI + SVG), 3 mockups,
+  `briefing.md` e `drop.json`.
+- ✅ Dashboard: a variação agora pode ter costas próprias (menino/menina); o Drop 001 segue igual.
+- ⏳ Aguardando a decisão do diretor criativo.
+- ⬜ Medidas infantis por tamanho a conferir na YouDraw.
+
+## Arquivos da gráfica — 24/11/2026
+- ✅ VectorCraft 0.24.1 instalado e testado (CLI e servidor MCP). Decisão D-009.
+- ✅ `npm run grafica`: PDF CMYK, AI e EPS de todas as estampas atuais dos Drops 001 e 002, em `grafica/`.
+- ✅ Dashboard: cada estampa com links PNG e PDF CMYK; YouDraw mostra "CMYK pronto, medidas a conferir".
+- ⬜ Perfil CMYK e medidas a conferir com a YouDraw.
+
 ## Próxima etapa recomendada (2)
 1. Criar o projeto Supabase, aplicar as migrations e preencher `.env.local`.
 2. Login por link mágico (Supabase Auth) para um único diretor criativo.

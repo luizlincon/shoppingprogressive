@@ -11,7 +11,10 @@ import {
   listLocalDrops,
   localFileUrl,
   localVariants,
+  DEFAULT_VARIANT_TEXT,
+  graficaPdf,
   type DropVariant,
+  type VariantText,
   type LocalDecision,
   type LocalDrop,
 } from "./local-drops";
@@ -32,7 +35,16 @@ export type DayCell = { date: string; status: CreationStatus | null };
 
 export type DashboardData = {
   today: string;
-  todayDrop: Block<{ creation: Creation | null; assets: Asset[]; variants?: DropVariant[]; decision?: LocalDecision }>;
+  todayDrop: Block<{
+    creation: Creation | null;
+    assets: Asset[];
+    number?: number;
+    variants?: DropVariant[];
+    variantText?: VariantText;
+    decision?: LocalDecision;
+    /** PDFs CMYK da gráfica: frente e costas da versão atual (sem variação). */
+    grafica?: { front: string | null; back: string | null; count: number };
+  }>;
   strip: Block<DayCell[]>;
   collections: Block<Collection[]>;
   memory: Block<{ rows: Pick<BrandMemoryRow, "kind" | "content" | "source">[]; decisions: number }>;
@@ -52,8 +64,11 @@ const LOCAL_KINDS: Record<string, AssetKind> = {
 function localToCreation(d: LocalDrop): {
   creation: Creation;
   assets: Asset[];
+  number: number;
   variants: DropVariant[];
+  variantText: VariantText;
   decision?: LocalDecision;
+  grafica: { front: string | null; back: string | null; count: number };
 } {
   const versionId = `local-${d.drop_date}-v${d.version}`;
   return {
@@ -76,8 +91,15 @@ function localToCreation(d: LocalDrop): {
         storage_bucket: "local",
         storage_path: localFileUrl(d, k)!,
       })),
+    number: d.number,
     variants: localVariants(d),
+    variantText: d.variant_text ?? DEFAULT_VARIANT_TEXT,
     decision: d.decision,
+    grafica: {
+      front: graficaPdf(d, d.files.print_front?.svg),
+      back: graficaPdf(d, d.files.print_back?.svg),
+      count: Object.keys(d.print_files?.files ?? {}).length,
+    },
   };
 }
 

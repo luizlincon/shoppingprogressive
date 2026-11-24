@@ -15,11 +15,23 @@ export type LocalDrop = {
   status: CreationStatus;
   concept: string;
   garment: { type: string; color: string; ink: string[] };
-  files: Record<string, { file: string; width_px?: number; height_px?: number; dpi?: number; width_mm?: number; height_mm?: number }>;
+  files: Record<string, { file: string; svg?: string; width_px?: number; height_px?: number; dpi?: number; width_mm?: number; height_mm?: number }>;
   featured_variant?: string;
   decision?: LocalDecision;
   history?: { version: number; decision?: { decision: string } }[];
-  variants?: { slug: string; name: string; color: string; mockup_front: { file: string }; print_front: { file: string } }[];
+  variants?: {
+    slug: string;
+    name: string;
+    color: string;
+    mockup_front: { file: string };
+    print_front: { file: string; svg?: string };
+    mockup_back?: { file: string };
+    print_back?: { file: string; svg?: string };
+  }[];
+  /** Arquivos para a gráfica gerados pelo VectorCraft (scripts/export-grafica.mjs), por SVG de origem. */
+  print_files?: { tool: string; color_profile: string; generated_at: string; files: Record<string, { pdf: string; ai: string; eps: string }> };
+  /** Textos do seletor de variações (o Drop 001 usa os padrões por faixa). */
+  variant_text?: VariantText;
 };
 
 export type LocalDecision = {
@@ -34,7 +46,32 @@ export type LocalDecision = {
 export const countLocalDecisions = (drops: LocalDrop[]) =>
   drops.reduce((n, d) => n + (d.decision ? 1 : 0) + (d.history ?? []).filter((h) => h.decision).length, 0);
 
-export type DropVariant = { slug: string; name: string; color: string; mockup: string; print: string; featured: boolean };
+export type VariantText = { legend: string; front_note: string; back_note: string; back_shared_note?: string };
+
+export const DEFAULT_VARIANT_TEXT: VariantText = {
+  legend: "Uma camiseta por faixa, todas com 4 graus",
+  front_note: "estampa de 14 cm",
+  back_note: "Igual nas 5 faixas, 30 cm",
+};
+
+export type DropVariant = {
+  slug: string;
+  name: string;
+  color: string;
+  mockup: string;
+  print: string;
+  mockupBack: string | null;
+  printBack: string | null;
+  pdf: string | null;
+  backPdf: string | null;
+  featured: boolean;
+};
+
+/** PDF CMYK da gráfica para um SVG de estampa, quando já foi gerado. */
+export const graficaPdf = (drop: LocalDrop, svg?: string) => {
+  const f = svg ? drop.print_files?.files[svg] : undefined;
+  return f ? `/drops/${drop.drop_date}/${f.pdf}` : null;
+};
 
 export const localVariants = (drop: LocalDrop): DropVariant[] =>
   (drop.variants ?? []).map((v) => ({
@@ -43,6 +80,10 @@ export const localVariants = (drop: LocalDrop): DropVariant[] =>
     color: v.color,
     mockup: `/drops/${drop.drop_date}/${v.mockup_front.file}`,
     print: `/drops/${drop.drop_date}/${v.print_front.file}`,
+    mockupBack: v.mockup_back ? `/drops/${drop.drop_date}/${v.mockup_back.file}` : null,
+    printBack: v.print_back ? `/drops/${drop.drop_date}/${v.print_back.file}` : null,
+    pdf: graficaPdf(drop, v.print_front.svg),
+    backPdf: graficaPdf(drop, v.print_back?.svg),
     featured: v.slug === drop.featured_variant,
   }));
 

@@ -58,3 +58,16 @@ modo de cor) serão conferidas na documentação oficial da YouDraw e cadastrada
 ## D-008 — Ambiente de desenvolvimento
 Verificado em 23/11/2026: Node 26.13.0, npm 11.20.0, git 2.56.1, GitHub CLI autenticado.
 Não instalados: CLI do Supabase, CLI da Vercel, pnpm, Docker, Postgres. Usamos npm.
+
+## D-009 — VectorCraft para os arquivos da gráfica (24/11/2026)
+**Contexto:** gráficas pedem PDF em CMYK, AI ou EPS, com traços contornados e texto em curvas; até aqui
+o Print Engine entregava SVG e PNG em RGB.
+**Escolha:** usar o VectorCraft 0.24.1 (ArtCraft, código aberto, roda no computador, sem conta) pela linha
+de comando. `npm run grafica [-- AAAA-MM-DD]` abre cada SVG da versão atual, contorna os traços, converte
+para CMYK e exporta `-cmyk.pdf`, `.ai` e `.eps` em `grafica/`, registrando tudo em `print_files` no
+`drop.json`. Executável em `VECTORCRAFT_CLI` ou no caminho padrão do Windows.
+**Verificado:** medidas idênticas às dos SVGs; PDFs renderizados e conferidos; PNG do VectorCraft a 300 DPI
+igual ao nosso (diferença abaixo de 1,2% dos pixels, nas bordas).
+**Limites:** o perfil CMYK é o padrão do VectorCraft, a conferir com a YouDraw; o app está "em
+desenvolvimento"; roda só onde estiver instalado (não na Vercel). O ArtCraft Studio, de geração com IA,
+não tem API e não substitui o provedor de imagens da etapa 2 (D-005).

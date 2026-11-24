@@ -168,5 +168,66 @@
       "tipografia",
       "peito-14cm"
     ]
+  },
+  "print_files": {
+    "tool": "VectorCraft (ArtCraft), local",
+    "color_profile": "Padrão do VectorCraft — conferir com a YouDraw",
+    "generated_at": "2026-11-24T19:08:39.176Z",
+    "files": {
+      "v2/print-front-marrom.svg": {
+        "pdf": "v2/grafica/print-front-marrom-cmyk.pdf",
+        "ai": "v2/grafica/print-front-marrom.ai",
+        "eps": "v2/grafica/print-front-marrom.eps",
+        "color_mode": "cmyk",
+        "width_mm": 140,
+        "height_mm": 41,
+        "warnings": []
+      },
+      "v2/print-back.svg": {
+        "pdf": "v2/grafica/print-back-cmyk.pdf",
+        "ai": "v2/grafica/print-back.ai",
+        "eps": "v2/grafica/print-back.eps",
+        "color_mode": "cmyk",
+        "width_mm": 300,
+        "height_mm": 322,
+        "warnings": []
+      },
+      "v2/print-front-branca.svg": {
+        "pdf": "v2/grafica/print-front-branca-cmyk.pdf",
+        "ai": "v2/grafica/print-front-branca.ai",
+        "eps": "v2/grafica/print-front-branca.eps",
+        "color_mode": "cmyk",
+        "width_mm": 140,
+        "height_mm": 41,
+        "warnings": []
+      },
+      "v2/print-front-azul.svg": {
+        "pdf": "v2/grafica/print-front-azul-cmyk.pdf",
+        "ai": "v2/grafica/print-front-azul.ai",
+        "eps": "v2/grafica/print-front-azul.eps",
+        "color_mode": "cmyk",
+        "width_mm": 140,
+        "height_mm": 41,
+        "warnings": []
+      },
+      "v2/print-front-roxa.svg": {
+        "pdf": "v2/grafica/print-front-roxa-cmyk.pdf",
+        "ai": "v2/grafica/print-front-roxa.ai",
+        "eps": "v2/grafica/print-front-roxa.eps",
+        "color_mode": "cmyk",
+        "width_mm": 140,
+        "height_mm": 41,
+        "warnings": []
+      },
+      "v2/print-front-preta.svg": {
+        "pdf": "v2/grafica/print-front-preta-cmyk.pdf",
+        "ai": "v2/grafica/print-front-preta.ai",
+        "eps": "v2/grafica/print-front-preta.eps",
+        "color_mode": "cmyk",
+        "width_mm": 140,
+        "height_mm": 41,
+        "warnings": []
+      }
+    }
   }
 }

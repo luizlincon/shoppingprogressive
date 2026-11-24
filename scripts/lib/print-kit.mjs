@@ -96,10 +96,11 @@ function shirtSvg(side, scale, color) {
 }
 
 /** Compõe a estampa sobre a camiseta na escala real (largura em mm, topo em unidades da silhueta). */
-export async function mockup(side, printPng, printWmm, topUnit, shirtColor = "#141414") {
+export async function mockup(side, printPng, printWmm, topUnit, shirtColor = "#141414", unitMm = UNIT_MM) {
   const scale = 6; // 1920 × 2040 px
   const base = await sharp(Buffer.from(shirtSvg(side, scale, shirtColor))).png().toBuffer();
-  const printWpx = Math.round((printWmm / UNIT_MM) * scale);
+  // unitMm: adulto 3,25 (corpo ≈ 52 cm); infantil 2,5 (corpo ≈ 40 cm, tamanho 8)
+  const printWpx = Math.round((printWmm / unitMm) * scale);
   const print = await sharp(printPng).resize({ width: printWpx }).toBuffer();
   const meta = await sharp(print).metadata();
   const left = Math.round(160 * scale - meta.width / 2);
